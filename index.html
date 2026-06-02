@@ -1,36 +1,463 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Stage officiel des pompiers de Morlais</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link href="style.css" rel="stylesheet" type="text/css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geoffrey Lallement — Accueil</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --ink: #111111;
+      --ink-light: #555555;
+      --accent: #1a1a2e;
+      --accent2: #c8a96e;
+      --border: #e5e3de;
+      --nav-h: 68px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-brand span { color: var(--accent2); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-light);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--accent2);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: calc(var(--nav-h) + 80px);
+      padding-bottom: 100px;
+      padding-left: 48px;
+      padding-right: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .hero-text {}
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 36px;
+    }
+
+    .hero-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink-light);
+      max-width: 520px;
+      border-left: 2px solid var(--accent2);
+      padding-left: 20px;
+
+      /* ZONE À REMPLIR */
+    }
+
+    .hero-intro-placeholder {
+      font-size: 0.875rem;
+      color: #bbb;
+      font-style: italic;
+    }
+
+    /* Photo card */
+    .photo-card {
+      position: sticky;
+      top: calc(var(--nav-h) + 32px);
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none; /* shown when src is set */
+    }
+
+    .photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-placeholder-icon svg { opacity: 0.4; }
+
+    .photo-placeholder p {
+      font-size: 0.8rem;
+      color: #bbb;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 48px 120px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 56px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 120px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 88px;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      position: relative;
+      padding-bottom: 48px;
+    }
+
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-dot {
+      position: absolute;
+      left: -38px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent2);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 1px var(--accent2);
+    }
+
+    .tl-year {
+      position: absolute;
+      left: -120px;
+      top: 2px;
+      width: 72px;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-light);
+      letter-spacing: 0.02em;
+    }
+
+    .tl-content {}
+
+    .tl-school {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .tl-degree {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+
+    .tl-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 10px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .tl-badge.current {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #bbb;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-text > * { animation: fadeUp 0.6s ease both; }
+    .hero-label   { animation-delay: 0.05s; }
+    .hero-name    { animation-delay: 0.12s; }
+    .hero-title   { animation-delay: 0.18s; }
+    .hero-intro   { animation-delay: 0.25s; }
+    .photo-card   { animation: fadeUp 0.7s 0.1s ease both; }
+
+    .tl-item {
+      animation: fadeUp 0.5s ease both;
+      animation-play-state: paused;
+    }
+    .tl-item.visible { animation-play-state: running; }
+
+    @media (max-width: 800px) {
+      nav { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; padding-top: calc(var(--nav-h) + 60px); }
+      .photo-card { position: static; }
+      .photo-frame { max-height: 320px; }
+      .timeline-section, .section-divider { padding-left: 24px; padding-right: 24px; }
+      .timeline { padding-left: 100px; }
+      .tl-year { left: -100px; }
+    }
+  </style>
 </head>
 <body>
-	<div id="menu">
-		<h1>Sapeurs pompiers de Morlais</h1>
-		<ul>
-			<li><a href="./pages/centre.html">Le centre</a></li>
-			<li><a href="./pages/stats.html">Les stats </a></li>
-		</ul>
-	</div>
-	
-	<div id="centre">
-		<fieldset>
-		<legend>Comment appeler les pompiers ?</legend>
-		<h2>Composer le 18 ou le 112 (numéro d'urgence européen).</h2>
-		<h2>Composer uniquement ces numéros pour les urgences graves</h2>
-		<h2>Autres numéros d'urgence : 15 samu - 17 police</h2>
-		<h2>En cas de sinistre, indiquer :</h2>
-		<ul>
-			<li class="cligno">La nature du sinistre</li>
-			<li class="cligno">Le lieu</li>
-			<li class="cligno">Le nombre de victimes et leurs états</li>
-		</ul>
-		<center>
-		<!--photographie du centre du secours -->
-		<img src="centre.jpg" alt="centre de pompiers" />
-		</center>
-		</fieldset>
-	</div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-brand" href="index.html">G<span>.</span>L</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-label">Portfolio</span>
+      <h1 class="hero-name">Geoffrey<br>Lallement</h1>
+      <p class="hero-title">Étudiant en Science des Données</p>
+      <p class="hero-intro">
+          Étudiant en première année de BUT Science des données, je m’intéresse particulièrement à l’analyse de données, à la programmation et à la manière dont les données peuvent aider à mieux comprendre le monde qui nous entoure. Curieux et motivé, j’aime apprendre de nouvelles méthodes, développer mes compétences techniques et travailler sur des projets concrets mêlant réflexion, logique et créativité.
+      </p>
+    </div>
+
+    <div class="photo-card">
+      <div class="photo-frame" id="photoFrame">
+        <!-- ✏️ AJOUTEZ VOTRE PHOTO : remplacez "votre-photo.jpg" par le chemin de votre image -->
+        <!-- <img src="votre-photo.jpg" alt="Geoffrey Lallement" onload="this.style.display='block'; this.parentElement.querySelector('.photo-placeholder').style.display='none';" /> -->
+        <div class="photo-placeholder">
+          <div class="photo-placeholder-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <p>Ajoutez votre photo ici</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PARCOURS -->
+  <section class="timeline-section">
+    <p class="section-label">Formation</p>
+    <h2 class="section-heading">Mon parcours</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">2025 —<br>Auj.</span>
+        <div class="tl-content">
+          <p class="tl-school">Université de Poitiers — Campus de Niort</p>
+          <p class="tl-degree">BUT Science des Données</p>
+          <span class="tl-badge current">En cours</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">2025</span>
+        <div class="tl-content">
+          <p class="tl-school">Université de La Rochelle</p>
+          <p class="tl-degree">Licence Mathématiques</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">2024</span>
+        <div class="tl-content">
+          <p class="tl-school">CESI École d'Ingénieur — La Rochelle</p>
+          <p class="tl-degree">Formation ingénieur</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">2021 —<br>2024</span>
+        <div class="tl-content">
+          <p class="tl-school">Lycée Paul Guérin — Niort</p>
+          <p class="tl-degree">Baccalauréat Général</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Geoffrey Lallement</span>
+    <span>Science des Données · Niort</span>
+  </footer>
+
+  <script>
+    // Animate timeline items on scroll
+    const items = document.querySelectorAll('.tl-item');
+    const delays = [0, 0.1, 0.2, 0.3];
+    items.forEach((el, i) => { el.style.animationDelay = delays[i] + 's'; });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+
+    items.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>

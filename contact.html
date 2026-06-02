@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geoffrey Lallement — Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --ink: #111111;
+      --ink-light: #555555;
+      --accent: #1a1a2e;
+      --accent2: #c8a96e;
+      --border: #e5e3de;
+      --nav-h: 68px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); min-height: 100vh; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; z-index: 1000;
+    }
+    .nav-brand { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--ink-light); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1.5px; background: var(--accent2); transition: width 0.25s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* ── LAYOUT ── */
+    .contact-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: calc(var(--nav-h) + 72px) 48px 120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── LEFT : retrouvez-moi ── */
+    .contact-left {}
+
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 12px; }
+
+    .block-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .block-line { width: 36px; height: 2px; background: var(--accent2); margin-bottom: 40px; }
+
+    /* Social links */
+    .social-links { display: flex; flex-direction: column; gap: 18px; }
+
+    .social-link {
+      display: flex; align-items: center; gap: 20px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+    .social-link:hover {
+      border-color: var(--accent2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transform: translateX(4px);
+    }
+
+    .social-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+    }
+
+    .icon-pdf { background: #fff1f0; color: #e53e3e; }
+    .icon-linkedin { background: #e8f0fe; color: #0a66c2; }
+
+    .social-body {}
+    .social-title { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+    .social-sub { font-size: 0.82rem; color: var(--ink-light); margin-top: 2px; }
+
+    .social-arrow { margin-left: auto; color: var(--ink-light); }
+
+    /* ── DIVIDER vertical ── */
+    .v-divider {
+      width: 1px;
+      background: var(--border);
+      align-self: stretch;
+    }
+
+    /* ── RIGHT : me contacter ── */
+    .contact-right {}
+
+    .contact-items { display: flex; flex-direction: column; gap: 24px; margin-top: 0; }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 20px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .contact-item-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--off-white);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink-light);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contact-item:hover .contact-item-icon {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    .contact-item-body {}
+    .contact-item-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+    .contact-item-value {
+      font-size: 1rem; font-weight: 500; color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a.contact-item-value:hover { color: var(--accent2); }
+
+    /* Separating line between sections on mobile */
+    .mobile-divider { display: none; height: 1px; background: var(--border); margin: 48px 0; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #bbb; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .social-link:nth-child(1) { animation-delay: 0.05s; }
+    .social-link:nth-child(2) { animation-delay: 0.15s; }
+    .contact-item:nth-child(1) { animation-delay: 0.1s; }
+    .contact-item:nth-child(2) { animation-delay: 0.2s; }
+
+    @media (max-width: 800px) {
+      nav { padding: 0 24px; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 0; padding-left: 24px; padding-right: 24px; }
+      .v-divider { display: none; }
+      .mobile-divider { display: block; }
+      footer { padding: 24px; flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-brand" href="index.html">G<span>.</span>L</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTACT WRAP -->
+  <main class="contact-wrap">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+      <p class="section-label">Liens</p>
+      <h2 class="block-heading">Retrouvez-moi</h2>
+      <div class="block-line"></div>
+
+      <div class="social-links">
+
+        <!-- CV PDF -->
+        <!-- ✏️ Remplacez "cv-geoffrey-lallement.pdf" par le chemin de votre CV -->
+        <a class="social-link" href="cv-geoffrey-lallement.pdf" download>
+          <div class="social-icon icon-pdf">
+            <!-- PDF icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <div class="social-body">
+            <p class="social-title">Mon CV</p>
+            <p class="social-sub">Télécharger en PDF</p>
+          </div>
+          <span class="social-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- LINKEDIN -->
+        <!-- ✏️ Remplacez le href par votre URL LinkedIn -->
+        <a class="social-link" href="https://www.linkedin.com/in/geoffrey-lallement-540b033a2?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer">
+          <div class="social-icon icon-linkedin">
+            <!-- LinkedIn icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#0a66c2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </div>
+          <div class="social-body">
+            <p class="social-title">LinkedIn</p>
+            <p class="social-sub">Voir mon profil</p>
+          </div>
+          <span class="social-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="7" y1="17" x2="17" y2="7"/>
+              <polyline points="7 7 17 7 17 17"/>
+            </svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- VERTICAL DIVIDER (desktop) -->
+    <div class="v-divider"></div>
+
+    <!-- RIGHT -->
+    <div class="contact-right">
+      <p class="section-label">Direct</p>
+      <h2 class="block-heading">Me contacter</h2>
+      <div class="block-line"></div>
+
+      <div class="contact-items">
+
+        <!-- EMAIL -->
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">E-mail</p>
+            <a class="contact-item-value" href="mailto:geoffreylallement8@gmail.fr">
+              geoffreylallement8@gmail.fr
+            </a>
+          </div>
+        </div>
+
+        <!-- PHONE -->
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.38 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.7a16 16 0 0 0 6 6l.86-.87a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">Téléphone</p>
+            <a class="contact-item-value" href="tel:+33772282247">
+              07 72 28 22 47
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Geoffrey Lallement</span>
+    <span>Science des Données · Niort</span>
+  </footer>
+
+</body>
+</html>

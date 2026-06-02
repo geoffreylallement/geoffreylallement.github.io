@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geoffrey Lallement — Projets</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --ink: #111111;
+      --ink-light: #555555;
+      --accent: #1a1a2e;
+      --accent2: #c8a96e;
+      --border: #e5e3de;
+      --nav-h: 68px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); min-height: 100vh; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; z-index: 1000;
+    }
+    .nav-brand { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--ink-light); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1.5px; background: var(--accent2); transition: width 0.25s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: calc(var(--nav-h) + 72px);
+      padding-bottom: 56px;
+      padding-left: 48px;
+      padding-right: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 12px; }
+    .page-heading { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.025em; color: var(--ink); }
+    .page-sub { margin-top: 14px; font-size: 0.95rem; color: var(--ink-light); line-height: 1.7; max-width: 520px; }
+
+    /* ── GRID ── */
+    .projects-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 120px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    /* ── CARD ── */
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--white);
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      animation: fadeUp 0.5s ease both;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+      border-color: var(--accent2);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-img-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .card-img-placeholder svg { opacity: 0.25; }
+    .card-img-placeholder span { font-size: 0.75rem; color: #bbb; }
+
+    .card-num {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      background: rgba(255,255,255,0.9);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    .card-body { padding: 20px 22px 24px; }
+    .card-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+    .card-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 10px; line-height: 1.25; }
+    .card-desc { font-size: 0.85rem; line-height: 1.65; color: var(--ink-light); }
+    .card-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 18px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--ink); border-bottom: 1px solid var(--accent2); padding-bottom: 1px;
+    }
+    .card-cta svg { transition: transform 0.2s; }
+    .project-card:hover .card-cta svg { transform: translateX(4px); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      max-width: 680px;
+      width: calc(100% - 48px);
+      max-height: 88vh;
+      overflow-y: auto;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-header {
+      padding: 28px 32px 0;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+    }
+    .modal-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); }
+    .modal-close {
+      background: none; border: none; cursor: pointer;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      color: var(--ink-light); border-radius: 50%;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { background: var(--off-white); color: var(--ink); }
+
+    .modal-img {
+      margin: 20px 32px 0;
+      height: 220px;
+      background: var(--off-white);
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .modal-img-placeholder svg { opacity: 0.2; }
+    .modal-img-placeholder span { font-size: 0.78rem; color: #ccc; }
+
+    .modal-body { padding: 24px 32px 36px; }
+    .modal-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); margin-bottom: 20px; line-height: 1.2; }
+    .modal-desc {
+      font-size: 0.92rem; line-height: 1.8; color: var(--ink-light);
+      border-left: 2px solid var(--accent2); padding-left: 18px;
+    }
+    .modal-desc-placeholder { font-style: italic; color: #ccc; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #bbb; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .project-card:nth-child(1) { animation-delay: 0.05s; }
+    .project-card:nth-child(2) { animation-delay: 0.10s; }
+    .project-card:nth-child(3) { animation-delay: 0.15s; }
+    .project-card:nth-child(4) { animation-delay: 0.20s; }
+    .project-card:nth-child(5) { animation-delay: 0.25s; }
+    .project-card:nth-child(6) { animation-delay: 0.30s; }
+    .project-card:nth-child(7) { animation-delay: 0.35s; }
+
+    @media (max-width: 800px) {
+      nav { padding: 0 24px; }
+      .page-header, .projects-grid { padding-left: 24px; padding-right: 24px; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-brand" href="index.html">G<span>.</span>L</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="projets.html" class="active">Projets</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <p class="section-label">Portfolio</p>
+    <h1 class="page-heading">Mes projets</h1>
+    <p class="page-sub">Cliquez sur un projet pour en découvrir les détails, la démarche et les résultats.</p>
+  </header>
+
+  <!-- PROJECTS GRID -->
+  <main class="projects-grid" id="projectsGrid"></main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <span class="modal-num" id="modalNum"></span>
+        <button class="modal-close" id="modalClose" aria-label="Fermer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-body">
+        <p class="modal-tag" id="modalTag"></p>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Geoffrey Lallement</span>
+    <span>Science des Données · Niort</span>
+  </footer>
+
+  <script>
+    // ──────────────────────────────────────────────────────────────
+    // ✏️  MODIFIEZ CE TABLEAU POUR PERSONNALISER VOS PROJETS
+    // ──────────────────────────────────────────────────────────────
+    const projects = [
+  {
+    id: 1,
+    tag: "Modélisation",
+    title: "Création d’un reporting",
+    shortDesc:
+      "Description brève du projet 1. Quelques mots sur le contexte et l'objectif.",
+    fullDesc:
+      "Description complète du projet 1 à remplir. Expliquez ici la problématique, la méthodologie, les outils utilisés et les résultats obtenus.",
+    image: "C:/Users/geoff/Downloads/PhotoPortfolio/SAEVBA.png"
+  },
+
+  {
+    id: 2,
+    tag: "Analyse de données",
+    title: "Construction et présentation d’indicateurs de performances",
+    shortDesc:
+      "Description brève du projet 2. Quelques mots sur le contexte et l'objectif.",
+    fullDesc:
+      "Description complète du projet 2 à remplir.",
+    image: "C:/Users/geoff/Downloads/PhotoPortfolio/SAEKPIECO.png"
+  },
+
+  {
+    id: 3,
+    tag: "Visualisation",
+    title: "Visualisation de données",
+    shortDesc:
+      "Description brève du projet 3. Quelques mots sur le contexte et l'objectif.",
+    fullDesc:
+      "Description complète du projet 3 à remplir.",
+    image: "C:/Users/geoff/Downloads/PhotoPortfolio/SAEReportingDataR.png"
+  },
+
+  {
+    id: 4,
+    tag: "R",
+    title: "Echantillonnage et Estimation",
+    shortDesc:
+      "Description brève du projet 4. Quelques mots sur le contexte et l'objectif.",
+    fullDesc:
+      "Description complète du projet 4 à remplir.",
+    image: "C:/Users/geoff/Downloads/PhotoPortfolio/SAEEchantillon.png"
+  },
+
+  {
+    id: 5,
+    tag: "R",
+    title: "Régression sur des données réelles",
+    shortDesc:
+      "Description brève du projet 5.",
+    fullDesc:
+      "Description complète du projet 5 à remplir."
+  },
+
+  {
+    id: 6,
+    tag: "Statistiques",
+    title: "Projet 6",
+    shortDesc:
+      "Description brève du projet 6.",
+    fullDesc:
+      "Description complète du projet 6 à remplir."
+  }
+];
+
+    // ── Render cards ──
+    const grid = document.getElementById('projectsGrid');
+    projects.forEach(p => {
+      const imgHTML = p.image
+        ? `<img src="${p.image}" alt="${p.title}" />`
+        : `<div class="card-img-placeholder">
+             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.2">
+               <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+               <polyline points="21 15 16 10 5 21"/>
+             </svg>
+             <span>Image du projet</span>
+           </div>`;
+
+      const card = document.createElement('article');
+      card.className = 'project-card';
+      card.setAttribute('data-id', p.id);
+      card.innerHTML = `
+        <div class="card-img">
+          <span class="card-num">0${p.id}</span>
+          ${imgHTML}
+        </div>
+        <div class="card-body">
+          <p class="card-tag">${p.tag}</p>
+          <h2 class="card-title">${p.title}</h2>
+          <p class="card-desc">${p.shortDesc}</p>
+          <span class="card-cta">Voir le projet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>`;
+      card.addEventListener('click', () => openModal(p));
+      grid.appendChild(card);
+    });
+
+    // ── Modal logic ──
+    const overlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(p) {
+      document.getElementById('modalNum').textContent = `Projet 0${p.id}`;
+      document.getElementById('modalTag').textContent = p.tag;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalDesc').innerHTML = p.fullDesc
+        ? `<p>${p.fullDesc}</p>`
+        : `<p class="modal-desc-placeholder">Description complète à remplir…</p>`;
+
+      const imgBox = document.getElementById('modalImg');
+      if (p.image) {
+        imgBox.innerHTML = `<img src="${p.image}" alt="${p.title}" />`;
+      } else {
+        imgBox.innerHTML = `<div class="modal-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Ajoutez une image au projet</span>
+        </div>`;
+      }
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
