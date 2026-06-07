@@ -183,6 +183,17 @@
       border-left: 2px solid var(--accent2); padding-left: 18px;
     }
     .modal-desc-placeholder { font-style: italic; color: #ccc; }
+    .modal-desc p {
+  white-space: pre-line;
+}
+.modal-desc strong {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  color: var(--ink);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
 
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #bbb; }
@@ -263,9 +274,14 @@
     tag: "Modélisation",
     title: "Création d’un reporting",
     shortDesc:
-      "Description brève du projet 1. Quelques mots sur le contexte et l'objectif.",
-    fullDesc:
-      "Description complète du projet 1 à remplir. Expliquez ici la problématique, la méthodologie, les outils utilisés et les résultats obtenus.",
+      "Création d’un outil de reporting automatisé sous Excel et VBA permettant le suivi et la visualisation des résultats académiques",
+    fullDesc: `
+<strong>Contexte :</strong> Dans le cadre de notre premier projet universitaire réalisé sur une semaine complète, nous devions concevoir un reporting automatisé à l’aide d’Excel et du langage VBA.L’objectif était de créer un outil permettant aux étudiants de visualiser et de suivre plus facilement leurs résultats académiques. Ce projet a été réalisé en binôme.
+
+<strong>Objectif :</strong> Développer un outil personnel de gestion et de suivi des notes à l’aide d’Excel et VBA, intégrant l’automatisation de certaines tâches de calcul et de mise à jour des données.
+
+<strong>Bilan :</strong> Réalisé avec Julien, nous avons pu répartir les tâches tout en s’entraidant sur les points difficiles. La principale difficulté a été l’intégration entre les fonctionnalités VBA et l’environnement Excel afin d’assurer un fonctionnement fluide et automatisé. Cette expérience nous a permis de développer nos compétences en programmation VBA, en logique d’automatisation ainsi qu’en travail d’équipe.
+    `,
     image: "images/SAEVBA.png"
   },
 
@@ -275,8 +291,13 @@
     title: "Construction et présentation d’indicateurs de performances",
     shortDesc:
       "Description brève du projet 2. Quelques mots sur le contexte et l'objectif.",
-    fullDesc:
-      "Description complète du projet 2 à remplir.",
+    fullDesc: `
+<strong>Contexte :</strong> Pour mener à bien ce projet, nous avons mené une analyse financière du groupe Fleury-Michon à partir de plusieurs documents comptables et financiers.Le projet avait pour but d’évaluer la situation et les performances de l’entreprise en utilisant différents outils d’analyse financière, tels que les ratios et les KPI. Nous devions ensuite exploiter ces résultats afin de construire un tableau de bord clair et visuel mettant en évidence les principaux indicateurs de l’entreprise.
+
+<strong>Objectif :</strong> Réaliser une étude des performances financières et économiques d'une entreprise en construisant et en analysant des indicateurs de performance (KPI)'
+
+<strong>Bilan :</strong>  Bien que le temps accordé pour ce projet était court (3 heures), nous avons pu réaliser un travail qui répondait aux attendus avec Adrien. L’un des principaux défis a été d’interpréter des indicateurs parfois contradictoires et d’en tirer une lecture cohérente et argumentée. Ce travail m’a permis de renforcer mes compétences en synthèse, en visualisation de données et en interprétation financière mais aussi comprendre ce qui se cache derrière un indicateur, identifier les signaux faibles et replacer chaque résultat dans son contexte sectoriel
+    `,
     image: "images/SAEKPIECO.png"
   },
 
@@ -286,8 +307,13 @@
     title: "Visualisation de données",
     shortDesc:
       "Description brève du projet 3. Quelques mots sur le contexte et l'objectif.",
-    fullDesc:
-      "Description complète du projet 3 à remplir.",
+    fullDesc: `
+<strong>Contexte :</strong> 
+
+<strong>Objectif :</strong> 
+
+<strong>Bilan :</strong>  
+    `,
     image: "images/SAEReportingDataR.png"
   },
 
@@ -297,8 +323,13 @@
     title: "Echantillonnage et Estimation",
     shortDesc:
       "Description brève du projet 4. Quelques mots sur le contexte et l'objectif.",
-    fullDesc:
-      "Description complète du projet 4 à remplir.",
+    fullDesc: `
+<strong>Contexte :</strong> 
+
+<strong>Objectif :</strong> 
+
+<strong>Bilan :</strong>  
+    `,
     image: "images/SAEEchantillon.png"
   },
 
@@ -308,8 +339,13 @@
     title: "Régression sur des données réelles",
     shortDesc:
       "Description brève du projet 5.",
-    fullDesc:
-      "Description complète du projet 5 à remplir."
+    fullDesc: `
+<strong>Contexte :</strong> 
+
+<strong>Objectif :</strong> 
+
+<strong>Bilan :</strong>  
+    `,
   },
 
   {
@@ -318,8 +354,13 @@
     title: "Projet 6",
     shortDesc:
       "Description brève du projet 6.",
-    fullDesc:
-      "Description complète du projet 6 à remplir."
+    fullDesc: `
+<strong>Contexte :</strong> 
+
+<strong>Objectif :</strong> 
+
+<strong>Bilan :</strong>  
+    `,
   }
 ];
 
@@ -369,6 +410,7 @@
       document.getElementById('modalDesc').innerHTML = p.fullDesc
         ? `<p>${p.fullDesc}</p>`
         : `<p class="modal-desc-placeholder">Description complète à remplir…</p>`;
+        
 
       const imgBox = document.getElementById('modalImg');
       if (p.image) {
