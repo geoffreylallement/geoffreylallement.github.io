@@ -10,22 +10,61 @@
 
     :root {
       --white: #ffffff;
-      --off-white: #f7f6f3;
-      --ink: #111111;
-      --ink-light: #555555;
+      --off-white: #f9f6f1;
+      --ink: #1c1c2e;
+      --ink-light: #5d5d70;
       --accent: #1a1a2e;
       --accent2: #c8a96e;
-      --border: #e5e3de;
+      --teal: #5fa194;
+      --blue: #5b7fa6;
+      --coral: #d98f72;
+      --violet: #9285b8;
+      --border: #e6e1d8;
       --nav-h: 68px;
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); min-height: 100vh; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--ink);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ── BACKGROUND TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(28,28,46,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28,28,46,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 620px; height: 620px; background: var(--accent2); opacity: 0.16; top: -200px; right: -160px; }
+    .orb-2 { width: 520px; height: 520px; background: var(--teal); opacity: 0.13; bottom: -120px; left: -180px; }
+    .orb-3 { width: 380px; height: 380px; background: var(--coral); opacity: 0.10; top: 50%; left: 55%; transform: translate(-50%,-50%); }
+
+    nav, .page-header, .skills-content, .tools-section, footer {
+      position: relative;
+      z-index: 1;
+    }
 
     /* ── NAVBAR ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: rgba(249,246,241,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px; z-index: 1000;
@@ -104,9 +143,10 @@
 
     .tech-bar-track {
       width: 100%;
-      height: 3px;
+      height: 9px;
       background: var(--off-white);
-      border-radius: 2px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
       overflow: hidden;
     }
 
@@ -117,6 +157,25 @@
       width: 0%;
       transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    /* Cycling accent colors per skill */
+    .tech-item:nth-child(1) .tech-icon { color: var(--teal); border-color: rgba(95,161,148,0.35); background: rgba(95,161,148,0.08); }
+    .tech-item:nth-child(1) .tech-bar-fill { background: linear-gradient(90deg, var(--teal), #9bcdc3); }
+
+    .tech-item:nth-child(2) .tech-icon { color: var(--blue); border-color: rgba(91,127,166,0.35); background: rgba(91,127,166,0.08); }
+    .tech-item:nth-child(2) .tech-bar-fill { background: linear-gradient(90deg, var(--blue), #9db8d8); }
+
+    .tech-item:nth-child(3) .tech-icon { color: var(--violet); border-color: rgba(146,133,184,0.35); background: rgba(146,133,184,0.08); }
+    .tech-item:nth-child(3) .tech-bar-fill { background: linear-gradient(90deg, var(--violet), #c2b8df); }
+
+    .tech-item:nth-child(4) .tech-icon { color: var(--coral); border-color: rgba(217,143,114,0.35); background: rgba(217,143,114,0.08); }
+    .tech-item:nth-child(4) .tech-bar-fill { background: linear-gradient(90deg, var(--coral), #f0bba4); }
+
+    .tech-item:nth-child(5) .tech-icon { color: var(--accent2); border-color: rgba(200,169,110,0.35); background: rgba(200,169,110,0.08); }
+    .tech-item:nth-child(5) .tech-bar-fill { background: linear-gradient(90deg, var(--accent2), #e8c88a); }
+
+    .tech-item:nth-child(6) .tech-icon { color: var(--teal); border-color: rgba(91,127,166,0.35); background: rgba(91,127,166,0.08); }
+    .tech-item:nth-child(6) .tech-bar-fill { background: linear-gradient(90deg, var(--blue), var(--teal)); }
 
     /* ── SOFT SKILLS ── */
     .soft-list { display: flex; flex-direction: column; gap: 20px; }
@@ -148,6 +207,13 @@
 
     .soft-icon svg { color: var(--accent2); }
 
+    .soft-item:nth-child(1) .soft-icon { background: rgba(95,161,148,0.10); }
+    .soft-item:nth-child(1) .soft-icon svg { color: var(--teal); }
+    .soft-item:nth-child(2) .soft-icon { background: rgba(91,127,166,0.10); }
+    .soft-item:nth-child(2) .soft-icon svg { color: var(--blue); }
+    .soft-item:nth-child(3) .soft-icon { background: rgba(217,143,114,0.10); }
+    .soft-item:nth-child(3) .soft-icon svg { color: var(--coral); }
+
     .soft-body {}
     .soft-name { font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
     .soft-desc { font-size: 0.83rem; color: var(--ink-light); line-height: 1.6; }
@@ -171,6 +237,8 @@
       cursor: default;
     }
     .tag:hover { border-color: var(--accent2); color: var(--ink); background: rgba(200,169,110,0.05); }
+    .tag:nth-child(3n+2):hover { border-color: var(--teal); background: rgba(95,161,148,0.06); }
+    .tag:nth-child(3n+3):hover { border-color: var(--coral); background: rgba(217,143,114,0.06); }
 
     footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #bbb; }
 
@@ -193,6 +261,10 @@
   </style>
 </head>
 <body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
   <!-- NAVBAR -->
   <nav>

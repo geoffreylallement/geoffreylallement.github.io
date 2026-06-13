@@ -10,22 +10,61 @@
 
     :root {
       --white: #ffffff;
-      --off-white: #f7f6f3;
-      --ink: #111111;
-      --ink-light: #555555;
+      --off-white: #f9f6f1;
+      --ink: #1c1c2e;
+      --ink-light: #5d5d70;
       --accent: #1a1a2e;
       --accent2: #c8a96e;
-      --border: #e5e3de;
+      --teal: #5fa194;
+      --blue: #5b7fa6;
+      --coral: #d98f72;
+      --violet: #9285b8;
+      --border: #e6e1d8;
       --nav-h: 68px;
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); min-height: 100vh; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--ink);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ── BACKGROUND TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(28,28,46,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28,28,46,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 620px; height: 620px; background: var(--accent2); opacity: 0.16; top: -200px; right: -160px; }
+    .orb-2 { width: 520px; height: 520px; background: var(--teal); opacity: 0.13; bottom: -120px; left: -180px; }
+    .orb-3 { width: 380px; height: 380px; background: var(--coral); opacity: 0.10; top: 50%; left: 55%; transform: translate(-50%,-50%); }
+
+    nav, .contact-wrap, footer {
+      position: relative;
+      z-index: 1;
+    }
 
     /* ── NAVBAR ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: rgba(249,246,241,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px; z-index: 1000;
@@ -83,6 +122,8 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.07);
       transform: translateX(4px);
     }
+    .social-link:nth-child(1):hover { border-color: #e53e3e; background: rgba(229,62,62,0.03); }
+    .social-link:nth-child(2):hover { border-color: #0a66c2; background: rgba(10,102,194,0.03); }
 
     .social-icon {
       width: 48px; height: 48px; flex-shrink: 0;
@@ -131,6 +172,8 @@
       border-color: var(--accent2);
       color: var(--accent2);
     }
+    .contact-item:nth-child(1):hover .contact-item-icon { border-color: var(--teal); color: var(--teal); background: rgba(95,161,148,0.08); }
+    .contact-item:nth-child(2):hover .contact-item-icon { border-color: var(--coral); color: var(--coral); background: rgba(217,143,114,0.08); }
 
     .contact-item-body {}
     .contact-item-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
@@ -163,6 +206,10 @@
   </style>
 </head>
 <body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
   <!-- NAVBAR -->
   <nav>
